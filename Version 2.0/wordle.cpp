@@ -2,6 +2,7 @@
 #include <fstream>
 #include "wordle.h"
 #include <chrono>
+
 using namespace std;
 
 int main()
@@ -16,18 +17,37 @@ int main()
         << "w, gray. In the program, input \"20010\"\n\n";
 
    // read in words from file to list of words "answers"
-   fstream ans("answers.txt");
+   fstream ans;
+   ans.open("answers.txt");
    vector<string> answers;
    string word;
-   while (ans >> word)
+   if (ans.is_open())
    {
-      answers.push_back(word);
+      while (ans >> word)
+      {
+         answers.push_back(word);
+      }
    }
-   fstream all("allWords.txt");
-   vector<string> allWords;
-   while (all >> word)
+   else
    {
-      allWords.push_back(word);
+      cout << "Couldn't open answers.txt";
+      return 0;
+   }
+
+   fstream all;
+   all.open("allWords.txt");
+   vector<string> allWords;
+   if (all.is_open())
+   {
+      while (all >> word)
+      {
+         allWords.push_back(word);
+      }
+   }
+   else
+   {
+      cout << "Couldn't open allWords.txt";
+      return 0;
    }
 
    auto t1 = chrono::high_resolution_clock::now();
@@ -36,12 +56,12 @@ int main()
    auto ms_int = chrono::duration_cast<chrono::milliseconds>(t2 - t1);
    cout << "Built list in " << ms_int.count() << "ms\n\n";
 
-   // do input sanitation? later
+   // repeat for each guess
    for (int x = 0; x < 6; x++)
    {
       if (wordStrengthsList[0].first != 0)
       {
-         cout << "Alternative words (bigger number means better)\n";
+         cout << "Good words (bigger number means better)\n";
          for (int x = 0; x < 5; x++)
          {
             cout << wordStrengthsList[x].second << ": " << wordStrengthsList[x].first << "\n";
