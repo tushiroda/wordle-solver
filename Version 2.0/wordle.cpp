@@ -13,14 +13,15 @@ int main()
         << "the colors for each letter, input the same word into the program and inp"
         << "ut a sequence of 5 numbers based on the colors. 2 means the letter was g"
         << "reen, 1 means yellow, and 0 means gray.\n"
-        << "Example: You input \"above\" and the colors are green, gray, gray, yello"
-        << "w, gray. In the program, input \"20010\"\n\n";
+        << "Example: You input 'above' and the colors are green, gray, gray, yellow,"
+        << " gray. In the program, input '20010'\n\n";
 
-   // read in words from file to list of words "answers"
+   // read in words from file to list of words "answers/"
    fstream ans;
    ans.open("answers.txt");
    vector<string> answers;
    string word;
+
    if (ans.is_open())
    {
       while (ans >> word)
@@ -59,6 +60,20 @@ int main()
    // repeat for each guess
    for (int x = 0; x < 6; x++)
    {
+      if (answers.size() < 1)
+      {
+         if (answers.size() == 1)
+         {
+            cout << "The answer is: " << answers[0];
+            cout << "\nCongrats, you win!";
+         }
+         else
+         {
+            cout << "No answers left, likely due to input error. Rerun the program and check your inputs.\n";
+            cout << "If you're not on the official wordle website, this program may not be able to solve very answer.";
+         }
+         return 0;
+      }
       if (wordStrengthsList[0].first != 0)
       {
          cout << "Good words (bigger number means better)\n";
@@ -101,16 +116,12 @@ int main()
             cout << "Input should be numeric and length 5\n";
          }
          cout << "\n";
-         if (userNums == "22222")
-         {
-            cout << "Congrats, you Win!";
-         }
       } while (!isdigit(userNums[0]) || userNums.size() != 5);
 
       updateAnswers(answers, input);
       wordStrengthsList = getWordStrengthsList(allWords, answers);
 
-      cout << "\nPossible answers: ";
+      cout << "\n\nPossible answers: ";
       for (string s : answers)
       {
          cout << s << "\t";

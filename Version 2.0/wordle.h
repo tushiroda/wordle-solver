@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string.h>
 #include <map>
 #include <algorithm>
 #include <vector>
