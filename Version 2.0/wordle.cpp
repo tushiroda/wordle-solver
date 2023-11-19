@@ -65,12 +65,14 @@ int main()
          if (answers.size() == 1)
          {
             cout << "The answer is: " << answers[0];
-            cout << "\nCongrats, you win!";
+            cout << "\nCongrats, you win!\n\n";
+            system("pause");
          }
          else
          {
             cout << "No answers left, likely due to input error. Rerun the program and check your inputs.\n";
-            cout << "If you're not on the official wordle website, this program may not be able to solve very answer.";
+            cout << "If you're not on the official wordle website, this program may not be able to solve very answer.\n\n";
+            system("pause");
          }
          return 0;
       }
