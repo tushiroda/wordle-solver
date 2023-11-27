@@ -60,7 +60,7 @@ int main()
    // repeat for each guess
    for (int x = 0; x < 6; x++)
    {
-      if (answers.size() < 1)
+      if (answers.size() <= 1)
       {
          if (answers.size() == 1)
          {
@@ -71,26 +71,29 @@ int main()
          else
          {
             cout << "No answers left, likely due to input error. Rerun the program and check your inputs.\n";
-            cout << "If you're not on the official wordle website, this program may not be able to solve very answer.\n\n";
+            cout << "If you're not on the official wordle website, this program may not be able to solve every answer.\n\n";
             system("pause");
          }
          return 0;
       }
-      if (wordStrengthsList[0].first != 0)
-      {
-         cout << "Good words (bigger number means better)\n";
-         for (int x = 0; x < 5; x++)
-         {
-            cout << wordStrengthsList[x].second << ": " << wordStrengthsList[x].first << "\n";
-         }
-      }
 
-      if (answers.size() <= 2)
+      if (answers.size() == 2)
       {
-         cout << "Suggested Word: " << answers[0] << "\n\n";
+         cout << "Only two words left. 50-50 shot. Good luck.\n\n";
       }
       else
+      {
+         if (wordStrengthsList[0].first != 0)
+         {
+            cout << "Good words to guess (bigger number means better)\n";
+            for (int x = 0; x < 5; x++)
+            {
+               cout << wordStrengthsList[x].second << ": " << wordStrengthsList[x].first << "\n";
+            }
+         }
          cout << "Suggested Word: " << wordStrengthsList[0].second << "\n\n";
+      }
+
       string userInput;
       do
       {
