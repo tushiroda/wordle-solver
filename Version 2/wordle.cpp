@@ -1,7 +1,8 @@
 #include <iostream>
 #include <fstream>
-#include "wordle.h"
+#include <ctype.h>
 #include <chrono>
+#include "wordle.h"
 
 using namespace std;
 
@@ -111,14 +112,17 @@ int main()
       {
          cout << "Enter 5 numbers, one for each letter value: ";
          cin >> userNums;
-         for (int x = 0; x < 5; x++)
-         {
-            input[x].first = userInput[x];
-            input[x].second = stoi(userNums.substr(x, 1));
-         }
          if (!isdigit(userNums[0]) || userNums.size() != 5)
          {
             cout << "Input should be numeric and length 5\n";
+         }
+         else
+         {
+            for (int x = 0; x < 5; x++)
+            {
+               input[x].first = userInput[x];
+               input[x].second = stoi(userNums.substr(x, 1));
+            }
          }
          cout << "\n";
       } while (!isdigit(userNums[0]) || userNums.size() != 5);
@@ -126,10 +130,10 @@ int main()
       updateAnswers(answers, input);
       wordStrengthsList = getWordStrengthsList(allWords, answers);
 
-      cout << "\n\nPossible answers: ";
+      cout << "\n\nPossible answers:";
       for (string s : answers)
       {
-         cout << s << "\t";
+         cout << "\t" << s;
       }
       cout << "\n\n";
    }
